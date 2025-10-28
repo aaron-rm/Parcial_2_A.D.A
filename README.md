@@ -3,7 +3,7 @@
 ## Descripción del problema 
 Una empresa de mensajería necesita asignar rutas diarias a sus conductores para entregar paquetes en distintos puntos de la ciudad. Cada conductor tiene una capacidad máxima de paquetes y cada punto de entrega tiene un tiempo estimado de llegada. Se requiere desarrollar un algoritmo que asigne rutas de entrega válidas con base en la capacidad y distancia entre puntos, intentando minimizar el tiempo total de recorrido. Este problema se puede considerar una simplificación del problema de ruteo de vehículos (VRP), pero sin aplicar búsqueda exhaustiva ni algoritmos de optimización clásicos. 
 
-Requisitos funcionales 
+### Requisitos funcionales 
  1. El usuario ingresa: 
 - [ ] Número de puntos de entrega (n) 
 - [ ] Distancia entre los puntos (matriz n×n) 
