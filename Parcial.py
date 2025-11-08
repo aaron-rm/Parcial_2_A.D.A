@@ -41,11 +41,11 @@
 # Visualización de Resultados 
 # Mostrar en pantalla las rutas con formato ordenado: 
 # conductor, puntos recorridos, distancia total, paquetes transportados y tiempo estimado. 
-
+import entrada_datos
 
 def menu():
     while True:
-        print("Parcial 2 - Menú")
+        print("Parcial 2 - Menu")
         print("  1) Rellenar datos")
         print("  2) ")
         print("  3) ")
@@ -54,13 +54,16 @@ def menu():
         print("  6) Salir")
     
         try:
-            opcion = int(input("\nSeleccione una opción (1-6): "))
+            opcion = int(input("\nSeleccione una opcion (1-6): "))
         except ValueError:
-            print("Debe ingresar un número válido.")
+            print("  Error: Debe ingresar un numero valido. Intente de nuevo.\n")
             continue  
         
         if opcion == 1:
-            print("Ejecutando Algoritmo 1...")
+            n, cap, P = entrada_datos.leer_datos()
+            matriz = entrada_datos.leer_matriz_distancias(n)
+            print("\n   Matriz de distancias (en kilometros):")
+            entrada_datos.mostrar_matriz(matriz)
         elif opcion == 2:
             print("Ejecutando Algoritmo 2...")
         elif opcion == 3:
@@ -68,12 +71,12 @@ def menu():
         elif opcion == 4:
             print("Ejecutando Algoritmo 4...")
         elif opcion == 5:
-            print("Ejecutando análisis empírico completo...")
+            print("Ejecutando análisis empirico completo...")
         elif opcion == 6:
             print("Saliendo del programa...")
             break
         else:
-            print("Opción no válida. Intente nuevamente.")
+            print("Opcion no valida. Intente nuevamente.")
         input("\nPresione Enter para continuar...")
     
     
