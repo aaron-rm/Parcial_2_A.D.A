@@ -61,9 +61,20 @@ def menu():
         
         if opcion == 1:
             n, cap, P = entrada_datos.leer_datos()
-            matriz = entrada_datos.leer_matriz_distancias(n)
+            print("   A continuacion, generaremos la matriz de distancias entre los puntos.\n")
+            print("   * Para asegurar que sea una matriz simetrica, los datos que se generaran seran los de la mitad superior de la matriz (el programa los duplicara para la mitad inferior)\n")
+            print("   Metodos de generacion:")
+            print("      1 ) Entrada manual de datos: ingrese cada distancia entre los puntos manualmente.")
+            print("      2 ) Generacion aleatoria: Nuestro programa generara aleatoriamente las distancias en un rango de 0-100 km.")
+            opcionGeneracion=int(input("      Seleccione un metodo de generación (1/2): "))
+            if (opcionGeneracion==1):
+                matriz = entrada_datos.leer_matriz_distancias(n)
+            if (opcionGeneracion==2):
+                matriz = entrada_datos.generar_matriz_aleatoria(n)
+            else:
+                print("            Error: Opcion no valida. Intente nuevamente.")
             print("\n   Matriz de distancias (en kilometros):")
-            entrada_datos.mostrar_matriz(matriz)
+            
         elif opcion == 2:
             print("Ejecutando Algoritmo 2...")
         elif opcion == 3:
@@ -76,11 +87,9 @@ def menu():
             print("Saliendo del programa...")
             break
         else:
-            print("Opcion no valida. Intente nuevamente.")
+            print("   Error: Opcion no valida. Intente nuevamente.")
         input("\nPresione Enter para continuar...")
-    
-    
-    
+
 if __name__ == "__main__":
     menu()
     #funcion a ejecutar

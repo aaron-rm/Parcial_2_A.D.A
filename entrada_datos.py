@@ -1,3 +1,8 @@
+from typing import List
+import re
+Matrix = List[List[float]]
+import random
+
 def leer_datos():
     while True:
         try:
@@ -14,7 +19,6 @@ def leer_datos():
             if P <= 0:
                 print("   El total de paquetes debe ser positivo.")
                 continue
-
             break
 
         except ValueError:
@@ -28,26 +32,32 @@ def leer_datos():
     return n, cap, P
 
 def leer_matriz_distancias(n):
-    print("   A continuacion, ingrese las distancias en kilometros entre los puntos.")
-    matriz = []
+    print("   A continuacion, ingrese las distancias en kilometros entre los puntos (solo la mitad superior).")
+    matriz = [[0 for _ in range(n)] for _ in range(n)]
+
     for i in range(n):
-        fila = []
-        for j in range(n):
-            if i == j:
-                print(f"      Distancia del punto {i} a si mismo = 0")
-                fila.append(0)
-            else:
-                while True:
-                    try:
-                        distancia = int(input(f"      Ingrese la distancia entre el punto {i} y el punto {j} (en kilometros): "))
-                        if(distancia<0):
-                            print("         Error: La distancia no puede ser negativa. Intente de nuevo.\n")
-                        else:
-                            fila.append(distancia)
-                            break
-                    except ValueError:
-                        print("         Error: Debe ingresar solo numeros enteros validos. Intente de nuevo.\n")
-        matriz.append(fila)
+        for j in range(i + 1, n):
+            while True:
+                try:
+                    distancia = float(input(f"      Distancia entre punto {i} y punto {j}: "))
+                    if distancia < 0:
+                        print("         Error: La distancia no puede ser negativa. Intente de nuevo.\n")
+                    else:
+                        matriz[i][j] = distancia
+                        matriz[j][i] = distancia
+                        break
+                except ValueError:
+                    print("         Error: Debe ingresar un numero válido.\n")
+    return matriz
+
+def generar_matriz_aleatoria(n):
+    matriz = [[0 for _ in range(n)] for _ in range(n)]
+    
+    for i in range(n):
+        for j in range(i + 1, n):
+            valor = random.randint(0, 100)
+            matriz[i][j] = valor
+            matriz[j][i] = valor
     return matriz
 
 def mostrar_matriz(matriz):
@@ -61,6 +71,5 @@ def mostrar_matriz(matriz):
         for j in range(n):
             print(f"     {matriz[i][j]:3}", end="")
         print()
-    
 
-
+# K
