@@ -1,30 +1,34 @@
 def leer_datos():
     while True:
         try:
-            print(f"\n--- Entrada de datos ---")
-            n = int(input("Ingrese el numero total de puntos (incluyendo el deposito): "))
+            n_txt  = input("Ingrese el numero total de puntos (incluyendo el deposito): ").strip()
+            cap_txt = input("Ingrese la capacidad maxima de paquetes por conductor: ").strip()
+            P_txt   = input("Ingrese el total de paquetes a repartir: ").strip()
+
+            # convierte
+            n   = int(n_txt)
+            cap = int(cap_txt)
+            P   = int(P_txt)
+
+            # valida reglas del problema -> si falla, lanza excepcion a proposito
             if n <= 1:
-                print("El numero de puntos debe ser mayor que 1.")
-                continue
-
-            cap = int(input("Ingrese la capacidad maxima de paquetes por conductor: "))
+                raise ValueError("El numero de puntos debe ser mayor que 1.")
             if cap <= 0:
-                print("La capacidad debe ser positiva.")
-                continue
-
-            P = int(input("Ingrese el total de paquetes a repartir: "))
+                raise ValueError("La capacidad debe ser positiva.")
             if P <= 0:
-                print("El total de paquetes debe ser positivo.")
-                continue
+                raise ValueError("El total de paquetes debe ser positivo.")
 
+            # si todo OK, rompe el while
             break
 
-        except ValueError:
-            print("Error: Debe ingresar solo numeros enteros validos. Intente de nuevo.\n")
+        except ValueError as e:
+            # aqui llegan tanto errores de conversion como reglas violadas
+            print(f"Error: {e} Intente de nuevo.\n")
+            continue
 
-    print(f"\nDatos ingresados correctamente:")
+    print("\nDatos ingresados correctamente:")
     print(f"→ Numero de puntos: {n}")
     print(f"→ Capacidad por conductor: {cap}")
     print(f"→ Total de paquetes: {P}\n")
-
     return n, cap, P
+
