@@ -1,0 +1,141 @@
+
+# =====================================================
+# ===============   FUNCIÓN DE ENTRADA   ===============
+# =====================================================
+
+def leer_datos():
+    """
+    Solicita al usuario los parámetros iniciales del problema.
+
+    Retorna:
+        n   (int): Número total de puntos (incluye el depósito).
+        cap (int): Capacidad máxima de paquetes por conductor.
+        P   (int): Total de paquetes a repartir.
+    """
+    while True:
+        try:
+            n_txt = input("Ingrese el número total de puntos (incluyendo el depósito): ").strip()
+            cap_txt = input("Ingrese la capacidad máxima de paquetes por conductor: ").strip()
+            P_txt = input("Ingrese el total de paquetes a repartir: ").strip()
+
+            n = int(n_txt)
+            cap = int(cap_txt)
+            P = int(P_txt)
+
+            # Validaciones básicas
+            if n <= 1:
+                raise ValueError("El número de puntos debe ser mayor que 1.")
+            if cap <= 0:
+                raise ValueError("La capacidad debe ser positiva.")
+            if P <= 0:
+                raise ValueError("El total de paquetes debe ser positivo.")
+
+            break
+
+        except ValueError as e:
+            print(f"Error: {e} Intente de nuevo.\n")
+            continue
+
+    print("\nDatos ingresados correctamente:")
+    print(f"→ Número de puntos: {n}")
+    print(f"→ Capacidad por conductor: {cap}")
+    print(f"→ Total de paquetes: {P}\n")
+    return n, cap, P
+
+
+# =====================================================
+# ============   CÁLCULO DE MÉTRICAS   ================
+# =====================================================
+
+def calcular_metricas(rutas, matriz_distancias, paquetes_por_punto, velocidad=1):
+    """
+    Calcula métricas de distancia, paquetes y tiempo para cada ruta asignada.
+
+    Parámetros:
+        rutas (list): Lista de rutas. Ejemplo: [[0, 2, 5, 0], [0, 1, 3, 0]]
+        matriz_distancias (list[list]): Matriz n×n de distancias entre puntos.
+        paquetes_por_punto (list[int]): Paquetes asignados a cada punto.
+        velocidad (float): Velocidad promedio del conductor.
+
+    Retorna:
+        list[dict]: Lista con resultados por conductor.
+    """
+    resultados = []
+
+    for idx, ruta in enumerate(rutas):
+        distancia_total = 0
+        paquetes_transportados = 0
+
+        # Sumar distancias entre cada par consecutivo de puntos
+        for i in range(len(ruta) - 1):
+            distancia_total += matriz_distancias[ruta[i]][ruta[i + 1]]
+
+        # Sumar paquetes transportados (omitiendo depósito 0)
+        for punto in ruta:
+            if punto != 0:
+                paquetes_transportados += paquetes_por_punto[punto]
+
+        tiempo_estimado = distancia_total / velocidad
+
+        resultados.append({
+            "conductor": idx + 1,
+            "ruta": ruta,
+            "distancia_total": distancia_total,
+            "paquetes": paquetes_transportados,
+            "tiempo": tiempo_estimado
+        })
+
+    return resultados
+
+
+# =====================================================
+# ============   VISUALIZACIÓN FINAL   ================
+# =====================================================
+
+def mostrar_metricas(resultados):
+    """
+    Muestra en consola las métricas obtenidas para cada ruta.
+    """
+    print("\n========== RESULTADOS DE LAS RUTAS ==========\n")
+
+    for r in resultados:
+        print(f"🚚 Conductor #{r['conductor']}")
+        print(f"  ➤ Ruta: {r['ruta']}")
+        print(f"  ➤ Distancia total: {r['distancia_total']} unidades")
+        print(f"  ➤ Paquetes transportados: {r['paquetes']}")
+        print(f"  ➤ Tiempo estimado: {r['tiempo']:.2f} unidades de tiempo")
+        print("---------------------------------------------")
+
+
+# =====================================================
+# ============   EJEMPLO DE EJECUCIÓN   ===============
+# =====================================================
+
+if __name__ == "__main__":
+    print("=== SISTEMA DE MÉTRICAS DE RUTAS DE MENSAJERÍA ===\n")
+
+    # Entrada de datos
+    n, cap, P = leer_datos()
+
+    # Ejemplo de matriz de distancias (puedes reemplazarla con datos reales)
+    matriz_distancias = [
+        [0, 4, 6, 8, 5, 7],
+        [4, 0, 3, 5, 7, 6],
+        [6, 3, 0, 2, 4, 5],
+        [8, 5, 2, 0, 6, 3],
+        [5, 7, 4, 6, 0, 2],
+        [7, 6, 5, 3, 2, 0]
+    ]
+
+    # Ejemplo de paquetes asignados a cada punto (índice = punto)
+    paquetes_por_punto = [0, 3, 4, 2, 5, 1]
+
+    # Ejemplo de rutas calculadas previamente
+    rutas = [
+        [0, 2, 3, 0],
+        [0, 1, 4, 5, 0]
+    ]
+
+    # Cálculo y visualización
+    resultados = calcular_metricas(rutas, matriz_distancias, paquetes_por_punto)
+    mostrar_metricas(resultados)
