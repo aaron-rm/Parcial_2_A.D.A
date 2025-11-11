@@ -1,5 +1,6 @@
 from typing import List, Set, Dict
 import re, random, time, tracemalloc
+import matplotlib.pyplot as plt
 
 # Definición de tipo para mayor claridad
 Matrix = List[List[float]]
@@ -332,25 +333,8 @@ class CalculadorMetricas:
             'paquetes_totales': sum(paquetes_por_conductor)
         }
 
-# <-- NUEVAS IMPORTACIONES para las gráficas
-try:
-    import matplotlib.pyplot as plt
-    MATPLOTLIB_DISPONIBLE = True
-except ImportError:
-    MATPLOTLIB_DISPONIBLE = False
-
 class AnalizadorComplejidad:
     def analisis_empirico(self, n_valores: List[int]) -> List[Dict]:
-        """
-        Realiza el análisis midiendo tiempo y memoria para diferentes tamaños de entrada.
-        Devuelve una lista de diccionarios con los resultados.
-        """
-        # Se necesita importar las clases aquí para que el análisis sea autónomo
-        from EntradaDatos import EntradaDatos
-        from DistribuidorPaquetes import DistribuidorPaquetes
-        from AsignadorRutas import AsignadorRutas
-        from CalculadorMetricas import CalculadorMetricas
-
         distribuidor = DistribuidorPaquetes()
         asignador = AsignadorRutas()
         calculador = CalculadorMetricas()
@@ -409,17 +393,7 @@ class AnalizadorComplejidad:
 
     # <-- NUEVO MÉTODO para las gráficas
     def mostrar_graficas(self, resultados_analisis: List[Dict]):
-        """
-        Toma los resultados del análisis y genera las gráficas.
-        """
-        if not MATPLOTLIB_DISPONIBLE:
-            print("\n  Error: La librería 'matplotlib' no está instalada.")
-            print("  Para ver las gráficas, ejecuta: pip install matplotlib")
-            return
 
-        if not resultados_analisis:
-            print("\n  Error: No hay datos para graficar. Ejecuta la opción 3 primero.")
-            return
 
         print("\nGenerando gráficas de complejidad...")
         n_valores = [r['n'] for r in resultados_analisis]
@@ -594,6 +568,9 @@ def menu():
             print("\nAnálisis completado. Puede ver las gráficas en la opción 4.")
 
         elif opcion == 4:
+            if not resultados_analisis:
+                print("\n  Error: Primero debe ejecutar la Opción 3.")
+                continue
             print("\n--- 4. MOSTRANDO GRÁFICAS DEL ANÁLISIS ---")
             analizador.mostrar_graficas(resultados_analisis)
 
