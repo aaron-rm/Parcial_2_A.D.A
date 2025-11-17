@@ -5,11 +5,11 @@ Una empresa de mensajería necesita asignar rutas diarias a sus conductores para
 
 ### Requisitos funcionales 
  1. El usuario ingresa: 
-- [ ] Número de puntos de entrega (n) 
-- [ ] Distancia entre los puntos (matriz n×n) 
-- [ ] Capacidad máxima de paquetes por conductor 
-- [ ] Cantidad total de paquetes a distribuir 
+- [x] Número de puntos de entrega (n) 
+- [x] Distancia entre los puntos (matriz n×n) 
+- [x] Capacidad máxima de paquetes por conductor 
+- [x] Cantidad total de paquetes a distribuir 
  2. El programa debe: 
-- [ ] Asignar rutas válidas a cada conductor según su capacidad. 
-- [ ] Calcular el tiempo estimado total para todas las rutas. 
-- [ ] Mostrar las rutas y sus métricas (distancia total, paquetes transportados, tiempo). 
+- [x] Asignar rutas válidas a cada conductor según su capacidad. 
+- [x] Calcular el tiempo estimado total para todas las rutas. 
+- [x] Mostrar las rutas y sus métricas (distancia total, paquetes transportados, tiempo). 
