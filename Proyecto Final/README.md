@@ -11,3 +11,8 @@
 - [] Elaborar una presentación, y concluyendo sobre la eficacia y eficiencia de la solución desarrollada. 
 
 ### Requisitos funcionales 
+- [] Ordenar libros por título.
+- [] Ordenar libros por autor.
+- [] Ordenar libros por año.
+- [] Buscar libros por ISBN con búsqueda binaria.
+- [] Extras: filtros múltiples, paginación.
